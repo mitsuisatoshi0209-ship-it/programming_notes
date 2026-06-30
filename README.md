@@ -16,6 +16,8 @@
 - programming_note2.md: VS Code と実行環境の入れ方
 - programming_note3.md: Git / GitHub / Continue / API の基礎
 - memo.md: 簡単にまとめたプログラミングに関する情報まとめ
+- RAM/README.md: メモリ使用量を確認するためのコマンド集
+- RAM/memory_commands.md: メモリ確認コマンドの実例と説明
 
 ## 使い方
 
