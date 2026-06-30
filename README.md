@@ -12,9 +12,9 @@
 
 ## 内容
 
-- programming_reference1.md: プログラミング言語の構造と選び方
-- programming_reference2.md: VS Code と実行環境の入れ方
-- programming_reference3.md: Git / GitHub / Continue / API の基礎
+- programming_note1.md: プログラミング言語の構造と選び方
+- programming_note2.md: VS Code と実行環境の入れ方
+- programming_note3.md: Git / GitHub / Continue / API の基礎
 - memo.md: 簡単にまとめたプログラミングに関する情報まとめ
 
 ## 使い方
