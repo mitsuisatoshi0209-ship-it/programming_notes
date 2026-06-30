@@ -9,8 +9,8 @@ style: |
   h2 { font-size: 1.4em; border-bottom: 2px solid #003366; }
 ---
 
-# 科学技術計算のための実践環境構築
-## Linux / macOS を前提にした入門
+# プログラミング環境を整える
+## VS Code と実行環境の入れ方
 
 講義ノート
 2026年度
@@ -19,117 +19,29 @@ style: |
 
 ## 目次
 
-1. まず前提として知っておくこと
-2. 基本ツールの導入
-3. Fortran, Python, Julia の導入
-4. VS Code の導入と設定
-5. Continue と OpenAI API を使う
-6. どんな場面でエージェント支援を使うべきか
+1. まずは何を準備するか
+2. VS Code の導入
+3. Python / Julia / Fortran の入れ方
+4. 最初のプログラムを動かす
+5. まとめ
 
 ---
 
-## 1. まず前提として知っておくこと
+## 1. まずは何を準備するか
 
-このノートでは、主に Linux と macOS を前提に説明します。
+プログラミングを始めるときは、まず「コードを書く場所」と「コードを実行する場所」を用意します。
 
-- Windows から作業する場合は、WSL2 を使う方法が現実的です
-- できるだけコマンドラインで操作できる環境を整える
-- そのうえで、VS Code などのエディタを使う
+- エディタ: VS Code
+- 実行環境: Python, Julia, Fortran など
+- 参考情報の保存場所: GitHub
 
----
-
-## 2. 基本ツールの導入
-
-### Git
-
-Ubuntu / Debian:
-
-```bash
-sudo apt update
-sudo apt install git
-```
-
-macOS:
-
-```bash
-brew install git
-```
-
-### gfortran
-
-Ubuntu / Debian:
-
-```bash
-sudo apt update
-sudo apt install gfortran
-```
-
-macOS:
-
-```bash
-brew install gcc
-```
-
-確認コマンド:
-
-```bash
-gfortran --version
-```
+この順番で整えると、作業がかなり楽になります。
 
 ---
 
-## 3. Fortran, Python, Julia の導入
+## 2. VS Code の導入
 
-### Python
-
-Ubuntu / Debian:
-
-```bash
-sudo apt update
-sudo apt install python3 python3-pip python3-venv
-```
-
-macOS:
-
-```bash
-brew install python
-```
-
-科学計算でよく使うパッケージ:
-
-```bash
-python3 -m pip install --user numpy scipy matplotlib
-```
-
-### Julia
-
-公式インストーラを使う方法が簡単です。
-
-```bash
-curl -fsSL https://install.julialang.org | sh
-```
-
-インストール後、ターミナルで `julia` が使えるか確認します。
-
-```bash
-julia --version
-```
-
-もし `julia: command not found` と表示された場合は、次を試します。
-
-```bash
-export PATH="$HOME/.juliaup/bin:$PATH"
-```
-
-その後、再度確認します。
-
-```bash
-julia --version
-```
-
----
-
-## 4. VS Code の導入と設定
+VS Code は、軽くて拡張機能が豊富なため、プログラミングの作業環境として非常に使いやすいです。
 
 ### インストール
 
@@ -161,51 +73,121 @@ brew install --cask visual-studio-code
 
 ---
 
-## 5. Continue と OpenAI API を使う
+## 3. Python / Julia / Fortran の入れ方
 
-VS Code では、Continue などの拡張機能を使うことで、エージェント的な支援を受けやすくなります。
+### Python
 
-### 基本的な流れ
+Ubuntu / Debian:
 
-1. OpenAI の API キーを取得する
-2. VS Code に Continue を入れる
-3. API キーとモデルを設定する
-4. エディタ上でチャットや補完を使う
+```bash
+sudo apt update
+sudo apt install python3 python3-pip python3-venv
+```
 
-### 使うとよい場面
+macOS:
 
-- 既存コードの意味をざっと理解したい
-- 反復的なボイラープレートコードを生成したい
-- 例外エラーの原因を絞り込む
-- 似た機能の実装例を比較したい
+```bash
+brew install python
+```
 
-### 使いすぎない方がよい場面
+確認:
 
-- 重要なアルゴリズムの正しさを一括で委ねる
-- 機密情報を含むコードを外部サービスに渡す
-- 最終的なレビューを省略する
+```bash
+python3 --version
+```
+
+### Julia
+
+公式インストーラを使う方法が簡単です。
+
+```bash
+curl -fsSL https://install.julialang.org | sh
+```
+
+インストール後、確認します。
+
+```bash
+julia --version
+```
+
+もし `julia: command not found` と表示された場合は、次を試します。
+
+```bash
+export PATH="$HOME/.juliaup/bin:$PATH"
+```
+
+### Fortran
+
+Ubuntu / Debian:
+
+```bash
+sudo apt update
+sudo apt install gfortran
+```
+
+macOS:
+
+```bash
+brew install gcc
+```
+
+確認:
+
+```bash
+gfortran --version
+```
 
 ---
 
-## 6. どんな場面でエージェント支援を使うべきか
+## 4. 最初のプログラムを動かす
 
-エージェント支援は、次のような場面で特に役立ちます。
+### Python の Hello World
 
-- 学習中で、書き方の例が欲しい
-- 手順が多い作業を素早く進めたい
-- 何を実装すべきか迷っている
-- 既存コードを別言語に置き換えたい
+```python
+print("Hello, world!")
+```
 
-一方で、最終判断は人間が行うのが望ましいです。
+実行:
+
+```bash
+python3 hello.py
+```
+
+### Julia の Hello World
+
+```julia
+println("Hello, world!")
+```
+
+実行:
+
+```bash
+julia hello.jl
+```
+
+### Fortran の Hello World
+
+```fortran
+program main
+  print *, 'Hello, world!'
+end program main
+```
+
+保存して、以下のように実行します。
+
+```bash
+gfortran hello.f90 -o hello
+./hello
+```
 
 ---
 
-## まとめ
+## 5. まとめ
 
-このノートでは、Linux / macOS を前提に、科学技術計算に必要な基本ツールの導入と、VS Code でのエージェント支援の使い方を整理しました。
+VS Code は、コードを書くための快適な作業環境です。
 
-- コマンドで入れられるものは、まずコマンドで導入する
-- 使う言語は目的に応じて選ぶ
-- AI支援は便利だが、最終判断は人間が行う
+- まずは VS Code を入れる
+- そのあと Python / Julia / Fortran を入れる
+- それぞれの Hello World を動かして確認する
 
-学習の過程では、実際に手を動かしながら理解を深めることが大切です。
+コマンドラインで入れられるものはコマンドで入れるのが基本ですが、VS Code の拡張機能を使うと、作業のしやすさがかなり上がります。
