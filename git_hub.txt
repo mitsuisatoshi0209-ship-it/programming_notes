@@ -1,0 +1,113 @@
+新しいパソコンから、まっさらな新しいリポジトリ（プロジェクト）を作ってGitHubにアップロードするまでの全手順をまとめました。
+
+今回は、一度設定してしまえばプロジェクトが変わってもずっと使い回せる「**最初の1回だけ必要な初期設定**」と、新しいプロジェクトを作るたびに毎回行う「**日常のアップロード手順**」の2つに分けて解説します。
+
+---
+
+## 🛠️ パート1：新しいパソコンでの初期設定（最初の1回だけ）
+
+新しいパソコンを触る時は、まずGitにあなたの名前を教え、GitHubと安全に通信できるように鍵（SSH鍵）を登録します。
+
+### 1. あなたの名前とメールアドレスの登録
+
+ターミナルを開き、以下の2行を実行します。
+
+```bash
+git config --global user.email "mitsuisatoshi0209@gmail.com"
+git config --global user.name "mitsuisatoshi0209-ship-it"
+
+```
+
+### 2. 新しいパソコン用のSSH鍵を作る
+
+```bash
+ssh-keygen -t ed25519 -C "mitsuisatoshi0209@gmail.com"
+
+```
+
+※「保存場所」や「パスフレーズ」を3回ほど聞かれますが、すべて**何も入力せずにエンターキーを連打**で大丈夫です。
+
+### 3. 公開鍵をコピーしてGitHubに登録する
+
+画面に表示される `ssh-ed25519 ...` から始まる長い文字列を**すべてコピー**します。
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+
+```
+
+1. ブラウザで [GitHubのSSH鍵設定画面](https://github.com/settings/keys) を直接開きます。
+2. **New SSH key** を押し、Titleに「新しいPCの名前」などをつけ、Keyの欄にコピーした文字列を貼り付けて保存します。
+
+### 4. 接続テスト
+
+```bash
+ssh -T git@github.com
+
+```
+
+`Hi mitsuisatoshi0209-ship-it! ...` と返ってくれば、新しいパソコンの準備は完了です！
+
+---
+
+## 🚀 パート2：新しいリポジトリを作ってアップロードする（毎回の手順）
+
+ここからが、新しいプロジェクト（例：`~/works/test/new_project`）を立ち上げる際の本番手順です。
+
+### 1. パソコン側（ローカル）での準備
+
+アップロードしたい新しいフォルダに移動し、Gitを初期化して最初の保存（コミット）を行います。
+
+```bash
+# ① 新しいフォルダに移動する
+cd ~/works/test/new_project
+
+# ② このフォルダをGitの管理下に置く（初期化）
+git init
+
+# ③ フォルダ内のすべてのファイルを準備部屋に載せる
+git add .
+
+# ④ 最初の公式記録として保存する
+git commit -m "first commit"
+
+# ⑤ メインのブランチ名を「main」に設定する
+git branch -M main
+
+```
+
+### 2. GitHub（ブラウザ）側での準備
+
+1. ブラウザで [GitHubのリポジトリ作成画面](https://github.com/new) を開きます。
+2. **Repository name** に、新しいプロジェクト名（例：`new_project`）を入力します。
+3. 他の設定は触らず、一番下の **Create repository**（緑色のボタン）を押します。
+
+### 3. 2つを紐付けてアップロード（Push）する
+
+画面が切り替わると、専用のURLが表示されます。それを使って最後の仕上げをします。
+
+```bash
+# ⑥ GitHub上のURLに「origin」というあだ名をつけてローカルに登録する
+git remote add origin git@github.com:mitsuisatoshi0209-ship-it/new_project.git
+
+# ⑦ 実際にGitHubへデータを送り出す
+git push -u origin main
+
+```
+
+---
+
+## 🔄 次回からの更新はこれだけ！
+
+この新しいリポジトリに、さらに変更を加えたりファイルを追加したりした場合は、もう `git init` や `git remote add ...` をやる必要はありません。
+
+フォルダ内で以下の使い慣れたコマンドを打つだけで、いつでもGitHubを最新に更新できます。
+
+```bash
+git add .
+git commit -m "変更内容のメモ"
+git push
+
+```
+
+新しいパソコンでも、この流れを一度通してしまえば、あとはThinkPadの時と全く同じ感覚でガシガシ使っていけますよ！
