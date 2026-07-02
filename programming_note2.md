@@ -45,6 +45,12 @@ VS Code は、軽くて拡張機能が豊富なため、プログラミングの
 
 ### インストール
 
+windows
+
+```bash
+wsl --install
+```
+
 Ubuntu / Debian:
 
 ```bash
